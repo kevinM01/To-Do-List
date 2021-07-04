@@ -7,13 +7,14 @@ const TodoList = () => {
     const [modal, setModal] = useState(false);
     const [taskList, setTaskList] = useState([]);
     console.log("task",taskList);
-    useEffect(() => {
-        let arr = localStorage.getItem("taskList");
-
-        if (arr) {
-            let obj = JSON.parse(arr);
-            setTaskList(obj);
-        }
+    useEffect(async() => {
+        // let arr = localStorage.getItem("taskList");
+        let resp = await axios.get('https://todo-list-46.herokuapp.com/api/');
+        console.log(resp.data)
+        let obj = (resp.data);
+        console.log("hy",obj);
+        setTaskList(obj);
+        
     }, []);
 
     const deleteTask = (index) => {
@@ -40,23 +41,21 @@ const TodoList = () => {
 
         // local storage
         let tempList = taskList;
-        console.log("DATA: ", tempList);
+        // console.log("DATA: ", tempList);
         tempList.push(taskObj);
-        localStorage.setItem("taskList", JSON.stringify(tempList));
-        setTaskList(tempList);
-        setModal(false);
+        // localStorage.setItem("taskList", JSON.stringify(tempList));
+        // setTaskList(tempList);
+        // setModal(false);
 
         //axios
-        let tempList = taskList;
-        tempList.push(taskObj);
-        console.log("rh")
-        const response = await axios({
-            method: "post",
-            url: "https://todo-list-46.herokuapp.com/api/",
-            data:"tempList"
-        })
-        let promise = await axios.get('https://todo-list-46.herokuapp.com/api/');
-        console.log("h-------------------------", promise,response);
+        // let tempList = taskList;
+        // tempList.push(taskObj);
+        // console.log("rh")
+        // console.log(taskObj)
+        await (await axios.post("https://todo-list-46.herokuapp.com/api/", taskObj))
+        // console.log(response)
+        
+        // console.log("h-------------------------", promise);
         setTaskList(tempList);
         setModal(false);
     
