@@ -40,9 +40,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Taskmanager',
     'rest_framework',
+<<<<<<< HEAD
     'channels',
     'chat',
+=======
+    'rest_framework.authtoken',
+>>>>>>> c8173a5a422a558f49ada362b7f7ef275b00d027
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
