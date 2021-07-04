@@ -8,7 +8,11 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
+<<<<<<< HEAD
+set VIRTUAL_ENV=D:\MYPROJECTS\To-Do-List\venv
+=======
 set VIRTUAL_ENV=C:\Users\Kevin\PycharmProjects\To-Do-List\venv
+>>>>>>> c8173a5a422a558f49ada362b7f7ef275b00d027
 
 if not defined PROMPT set PROMPT=$P$G
 
