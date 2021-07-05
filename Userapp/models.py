@@ -7,10 +7,14 @@ from rest_framework.authtoken.models import Token
 
 
 class User(models.Model):
-    username = models.CharField(max_length=200)
-    email = models.CharField(max_length=200)
-    password = models.CharField(max_length=200)
-
+    username = models.CharField(max_length=200, default='')
+    password = models.CharField(max_length=200, default='')
+    password2 = models.CharField(max_length=200, default='')
+    email = models.CharField(max_length=200, default='')
+    phone = models.CharField(max_length=300, default='')
+    first_name = models.CharField(max_length=200, default='')
+    last_name = models.CharField(max_length=200, default='')
+    
     def __str__(self):
         return str(self.username)
 
@@ -19,3 +23,5 @@ class User(models.Model):
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
+
+

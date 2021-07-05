@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.contrib.auth import login, authenticate
+from django.shortcuts import render, redirect
 from .models import User
-from .serializers import AccountSerializer
+from rest_framework import generics
+from .serializers import RegisterSerializer
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -13,11 +15,11 @@ class Userlist(APIView):
 
     def get(self, request):
         Userapp = User.objects.all()
-        serializer = AccountSerializer(User, many=True)
+        serializer = RegisterSerializer(User, many=True)
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = AccountSerializer(data=request.data)
+        serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -33,12 +35,12 @@ class Userdetail(APIView):
 
     def get(self, request, pk):
         Task = self.get_object(pk)
-        serializer = AccountSerializer(Task)
+        serializer = RegisterSerializer(Task)
         return Response(serializer.data)
 
     def put(self, request, pk):
         Task = self.get_object(pk)
-        serializer = AccountSerializer(Task, data=request.data)
+        serializer = RegisterSerializer(Task, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -48,3 +50,9 @@ class Userdetail(APIView):
         Task = self.get_object(pk)
         Task.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = RegisterSerializer

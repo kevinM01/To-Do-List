@@ -41,12 +41,9 @@ INSTALLED_APPS = [
     'Taskmanager',
     'Userapp',
     'rest_framework',
-<<<<<<< HEAD
     'channels',
-    'chat',
-=======
+    # 'chat',
     'rest_framework.authtoken',
->>>>>>> c8173a5a422a558f49ada362b7f7ef275b00d027
 ]
 
 REST_FRAMEWORK = {
@@ -146,12 +143,9 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-<<<<<<< HEAD
-=======
-ASGI_APPLICATION = "Todoapp.routing.application"
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': "channels.layers.InMemoryChannelLayer"
-    },
-}
->>>>>>> 343cf95e7e100e65345a16d8ce07ea9060ae2700
+# # ASGI_APPLICATION = "Todoapp.routing.application"
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': "channels.layers.InMemoryChannelLayer"
+#     },
+# }
