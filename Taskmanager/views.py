@@ -21,26 +21,26 @@ class Tasklist(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class Taskdetail(APIView):
-    def get_object(self, pk):
+    def get_object(self, uid):
         try:
-            return Task.objects.get(pk=pk)
+            return Task.objects.get(uid=uid)
         except Task.DoesNotExist:
             raise Http404
 
-    def get(self, request, pk):
-        Task = self.get_object(pk)
+    def get(self, request, uid):
+        Task = self.get_object(uid)
         serializer = TaskSerialzer(Task)
         return Response(serializer.data)
 
-    def put(self, request, pk):
-        Task = self.get_object(pk)
+    def put(self, request, uid):
+        Task = self.get_object(uid)
         serializer = TaskSerialzer(Task, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk, format=None):
-        Task = self.get_object(pk)
+    def delete(self, request, uid):
+        Task = self.get_object(uid)
         Task.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

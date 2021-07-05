@@ -18,5 +18,5 @@ from django.urls import path
 from .views import Tasklist,Taskdetail
 urlpatterns = [
   path('',Tasklist.as_view(),name="Tasklist"),
-  path('<int:pk>/',Taskdetail.as_view(),name="Taskdetail"),
+  path('<str:uid>/',Taskdetail.as_view(),name="Taskdetail"),
 ]
