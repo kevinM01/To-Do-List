@@ -11,7 +11,7 @@ const TodoList = () => {
         // let arr = localStorage.getItem("taskList");
         let resp = await axios.get('https://todo-list-46.herokuapp.com/api/');
         console.log(resp.data)
-        let obj = (resp.data);
+        let obj = (resp.data)
         console.log("hy",obj);
         setTaskList(obj);
         
