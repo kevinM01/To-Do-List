@@ -3,32 +3,56 @@ import CreateTask from "./modals/CreateTask";
 import Card from "./Card";
 import axios from "axios"
 
+
 const TodoList = () => {
     const [modal, setModal] = useState(false);
     const [taskList, setTaskList] = useState([]);
     console.log("task",taskList);
     useEffect(async() => {
         // let arr = localStorage.getItem("taskList");
-        let resp = await axios.get('https://todo-list-46.herokuapp.com/api/');
-        console.log(resp.data)
-        let obj = (resp.data)
-        console.log("hy",obj);
+        let resp = await axios.get('https://0b1a38ea6ad3.ngrok.io/api/');
+        let obj = (resp.data);
         setTaskList(obj);
         
     }, []);
 
-    const deleteTask = (index) => {
+    const deleteTask = async (obj,index) => {
+        // local storage
+        // let tempList = taskList;
+        // tempList.splice(index, 1);
+        // console.log("index", index);
+        // localStorage.setItem("taskList", JSON.stringify(tempList));
+        // setTaskList(tempList);
+        // window.location.reload();
+
+        // axios
+        console.log(obj);
+        let uid= obj.uid;
         let tempList = taskList;
+        console.log("id being deleted: ", uid);
+        console.log("ind",index)
         tempList.splice(index, 1);
-        localStorage.setItem("taskList", JSON.stringify(tempList));
+        console.log("hy",tempList)
         setTaskList(tempList);
+        console.log("j",taskList)
+        await axios.delete(`https://0b1a38ea6ad3.ngrok.io/api/${uid}/`);
         window.location.reload();
     };
 
-    const updateListArray = (obj, index) => {
+    const updateListArray = async(obj,index) => {
+        // let tempList = taskList;
+        // tempList[index] = obj;
+        // localStorage.setItem("taskList", JSON.stringify(tempList));
+        // setTaskList(tempList);
+        // window.location.reload();
+        let uid = obj.uid;
+        console.log("obj uodate",obj)
+        console.log("id being updated : ", uid);
         let tempList = taskList;
         tempList[index] = obj;
-        localStorage.setItem("taskList", JSON.stringify(tempList));
+        
+        await axios.put(`https://0b1a38ea6ad3.ngrok.io/api/${uid}/`, obj)
+    
         setTaskList(tempList);
         window.location.reload();
     };
@@ -40,25 +64,19 @@ const TodoList = () => {
     const saveTask = async (taskObj) => {
 
         // local storage
-        let tempList = taskList;
+        // let tempList = taskList;
         // console.log("DATA: ", tempList);
-        tempList.push(taskObj);
+        // tempList.push(taskObj);
         // localStorage.setItem("taskList", JSON.stringify(tempList));
         // setTaskList(tempList);
         // setModal(false);
 
         //axios
-        // let tempList = taskList;
-        // tempList.push(taskObj);
-        // console.log("rh")
-        // console.log(taskObj)
-        await (await axios.post("https://todo-list-46.herokuapp.com/api/", taskObj))
-        // console.log(response)
-        
-        // console.log("h-------------------------", promise);
+        let tempList = taskList;
+        tempList.push(taskObj);
+        await (await axios.post("https://0b1a38ea6ad3.ngrok.io/api/", taskObj))
         setTaskList(tempList);
         setModal(false);
-    
     };
 
     return (

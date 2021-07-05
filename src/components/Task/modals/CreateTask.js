@@ -22,7 +22,7 @@ const CreateTask = ({ modal, toggle, save }) => {
         let taskObj = {}
         taskObj["name"] = taskName
         taskObj["description"] = description
-        taskObj["id"] = uuid();
+        taskObj["uid"] = uuid();
         taskObj["is_completed"] = true;
 
         save(taskObj)

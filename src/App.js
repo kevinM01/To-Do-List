@@ -6,7 +6,7 @@ import Signup from './components/Signup'
 import Contact from './components/Contact';
 import TodoList from './components/Task/TodoList'
 import { BrowserRouter as Router,Route,Switch} from 'react-router-dom';
-
+var cors = require('cors');
 
 
 function App() {
