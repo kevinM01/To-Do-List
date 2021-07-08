@@ -4,16 +4,11 @@ from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
+from django.contrib.auth.models import AbstractUser
 
 
-class User(models.Model):
-    username = models.CharField(max_length=200, default='')
-    password = models.CharField(max_length=200, default='')
-    password2 = models.CharField(max_length=200, default='')
-    email = models.CharField(max_length=200, default='')
-    phone = models.CharField(max_length=300, default='')
-    first_name = models.CharField(max_length=200, default='')
-    last_name = models.CharField(max_length=200, default='')
+class CustomUser(AbstractUser):
+    phone = models.CharField(max_length=300, default='',blank=True,null=True)
     
     def __str__(self):
         return str(self.username)

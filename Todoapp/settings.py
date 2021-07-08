@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     'channels',
     # 'chat',
     'rest_framework.authtoken',
+    'rest_auth.registration',
+    'allauth',
+    'django.contrib.sites',
 ]
 
 REST_FRAMEWORK = {
@@ -152,3 +155,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #         'BACKEND': "channels.layers.InMemoryChannelLayer"
 #     },
 # }
+
+AUTH_USER_MODEL = 'Userapp.CustomUser'
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+REST_AUTH_SERIALIZERS = {
+    'LOGIN_SERIALIZER': 'Userapp.serializers.UserSerializer',
+}
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'Userapp.serializers.CustomRegisterSerializer',
+}
